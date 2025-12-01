@@ -15,25 +15,23 @@ for line in file:
         right += 1
 
     direction = line[0]
-    number = line[1:]
-    value = int(number)
+    value = int(line[1:])
 
     if direction == 'R':
-        temp_value = total_value + value
-        if temp_value >= 100:
-            pass_zero += temp_value // 100 # Help from Reddit (had +=1)
-        total_value = temp_value
+        current = total_value // 100
+        total_value += value
+        new_hundreds = total_value // 100
+        pass_zero += (new_hundreds - current)
+
     elif direction == 'L':
-        temp_value = total_value - value
-        if temp_value < 0:
-            pass_zero += (abs(temp_value) // 100) + 1 # Help from Reddit (had +=1)
-        total_value = temp_value
-    # Mododulus
+        shifted = (total_value - 1) // 100
+        total_value -= value
+        new_hundreds = (total_value - 1) // 100
+        pass_zero += (shifted - new_hundreds)
+
     total_value = total_value % 100
 
     if total_value == goal:
         amount += 1
 print(pass_zero)
-print(amount)
-
 file.close()
