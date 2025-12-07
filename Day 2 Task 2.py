@@ -2,7 +2,7 @@ import re
 
 file = open("Day 2 input.txt", "r")
 content = file.read()
-pattern = re.compile(r'^(\d+)\1{2,}$')
+pattern = re.compile(r'^(\d+)\1+$')
 ranges = content.split(",")
 invalid_id = []
 for i in ranges:
