@@ -1,16 +1,20 @@
 import re
 
 file = open("Day 2 input.txt", "r")
-invalid_id = []
 content = file.read()
-pattern = r"(\d+)[,]\1"
-res = re.findall(r'\d+', content)
-for i in res:
-    match = re.fullmatch(pattern, i)
-    if match:
-        invalid_id.append(i)
+pattern = re.compile(r'^(\d+)\1$')
+ranges = content.split(",")
+invalid_id = []
+for i in ranges:
+    parts = i.split("-")
+    if len(parts) == 2:
+        start = int(parts[0])
+        end = int(parts[1])
+        for num in range(start, end+1):
+            x = str(num)
+            if pattern.match(x):
+                invalid_id.append(num)
 
-print("results: " + str(len(invalid_id)))
+print("results: " + str(sum(invalid_id)))
 file.close()
-
 
